@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# This script gives information about the school file using if and else statements.
+
+if [ -e "school.txt" ]
+then
+  echo "school file exists"
+  if [ -s "school.txt" ]
+  then
+    echo "school file is not empty"
+    if [ -f "school.txt" ]
+    then
+      echo "school is a regular file"
+    fi
+  else
+    echo "school file is empty"
+  fi
+else
+  echo "school file does not exist"
+fi
