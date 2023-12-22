@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Bash script that displays a list of currently running processes
+
+# Display column headers
+printf "%-10s %-10s %-10s %-20s\n" "PID" "PPID" "USER" "COMMAND"
+
+# Get process information using 'ps' command
+ps aux --forest --no-headers | while read -r line; do
+    # Extract relevant process information
+    pid=$(echo "$line" | awk '{print $2}')
+    ppid=$(echo "$line" | awk '{print $3}')
+    user=$(echo "$line" | awk '{print $1}')
+    command=$(echo "$line" | awk '{$1=$2=$3=""; print $0}' | sed 's/^[[:space:]]*//')
+
+    # Print process information
+    printf "%-10s %-10s %-10s %-20s\n" "$pid" "$ppid" "$user" "$command"
+done
