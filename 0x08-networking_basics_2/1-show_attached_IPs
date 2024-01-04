@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# This script displays all active IPv4 IPs on the machine
+
+# Use the 'ip' command to get the IPv4 addresses of all active interfaces
+ipv4_addresses=$(ip -4 addr show | awk '/inet/ {print $2}')
+
+# Loop through each IPv4 address and display them
+echo "Active IPv4 Addresses:"
+for address in $ipv4_addresses; do
+  echo "- $address"
+done
