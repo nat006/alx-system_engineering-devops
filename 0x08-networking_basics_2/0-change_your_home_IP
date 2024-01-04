@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# This script configures DNS resolution on an Ubuntu server
+
+# Check if running in Docker
+if [[ -f "/.dockerenv" ]]; then
+  echo "Running in Docker."
+else
+  echo "Not running in Docker. This script is meant to run within a Docker container."
+  exit 1
+fi
+
+# Update the /etc/hosts file to set localhost to 127.0.0.2
+echo "127.0.0.2 localhost" | tee -a /etc/hosts
+
+# Install the required packages (dnsutils) to modify DNS resolver configuration
+apt-get update
+apt-get install -y dnsutils
+
+# Configure DNS resolver to resolve facebook.com to 8.8.8.8
+echo "nameserver 8.8.8.8" | tee /etc/resolv.conf
+
+# Validate the DNS resolution for localhost and facebook.com
+echo "Testing DNS resolution..."
+ping -c 5 localhost
+ping -c 5 facebook.com
