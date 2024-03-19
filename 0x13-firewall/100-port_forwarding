@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# rules.before
+
+sudo nano /etc/ufw/before.rules
+sudo ufw enable 8080
+sudo ufw allow
+sudo service ufw restart
+sudo ufw enable
