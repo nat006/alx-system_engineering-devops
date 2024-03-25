@@ -19,9 +19,12 @@ def fetch_user_todos(user_id):
     username = user.get("username")
 
     # Fetch the to-do list for the user ID
-    todos = requests.get(url + "todos", params={"userId": user_id}).json()
+    params = {"userId": user_id}
+    todos = requests.get(url + "todos", params).json()
 
-    return [
+    # Create a dictionary containing the user and to-do list information
+    data_to_export = {
+        user_id: [
             {
                 "task": t.get("title"),
                 "completed": t.get("completed"),
@@ -29,6 +32,7 @@ def fetch_user_todos(user_id):
             }
             for t in todos
         ]
+    }
 
 
 if __name__ == "__main__":
