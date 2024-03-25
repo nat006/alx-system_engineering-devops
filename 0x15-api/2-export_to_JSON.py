@@ -9,24 +9,19 @@ import json
 import requests
 import sys
 
-if __name__ == "__main__":
-    # Get the employee ID from the command-line argument
-    user_id = sys.argv[1]
 
+def fetch_user_todos(user_id):
     # Base URL for the JSONPlaceholder API
     url = "https://jsonplaceholder.typicode.com/"
 
-    # Fetch user information using the provided employee ID
+    # Fetch user information using the provided user ID
     user = requests.get(url + "users/{}".format(user_id)).json()
     username = user.get("username")
 
-    # Fetch the to-do list for the employee using the provided employee ID
-    params = {"userId": user_id}
-    todos = requests.get(url + "todos", params).json()
+    # Fetch the to-do list for the user ID
+    todos = requests.get(url + "todos", params={"userId": user_id}).json()
 
-    # Create a dictionary containing the user and to-do list information
-    data_to_export = {
-        user_id: [
+    return [
             {
                 "task": t.get("title"),
                 "completed": t.get("completed"),
@@ -34,9 +29,13 @@ if __name__ == "__main__":
             }
             for t in todos
         ]
-    }
 
-    # Write the data to a JSON file with the employee ID as the filename
+
+if __name__ == "__main__":
+    user_id = sys.argv[1]  # Extract the user ID from command-line arguments
+
+    user_data = fetch_user_todos(user_id)  # Fetch to-do list for specific user
+
+    # Write the user's to-do list data to a JSON file named with the user ID
     with open("{}.json".format(user_id), "w") as jsonfile:
-        json.dump(data_to_export, jsonfile, indent=4)
-
+        json.dump(user_data, jsonfile, indent=4)
