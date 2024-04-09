@@ -20,7 +20,7 @@ def number_of_subscribers(subreddit):
         int: Number of subs of subreddit. Returns 0 if subreddit is invalid.
     """
     url = f"https://www.reddit.com/r/{subreddit}/about.json"
-    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
+    headers = {'User-Agent': 'Linux:0x16 api.advanced:v1.0.0 (by u/nm01)'}
     try:
         response = requests.get(url, headers=headers)
         if response.status_code == 200:
