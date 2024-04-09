@@ -18,7 +18,7 @@ def top_ten(subreddit):
         None
     """
     url = f"https://www.reddit.com/r/{subreddit}/hot.json?limit=10"
-    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
+    headers = {'User-Agent': 'Linux:0x16 api.advanced:v1.0.0 (by u/nm01)'}
     try:
         response = requests.get(url, headers=headers)
         if response.status_code == 200:
